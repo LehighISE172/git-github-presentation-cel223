@@ -1,0 +1,61 @@
+from turtle import Turtle, Screen, Shape
+import random
+
+turtle = Turtle(visible=False) #hide turtle
+#Draw the path and nodes:
+turtle.pensize(3)               #
+turtle.color("pink")            #
+turtle.dot(15) #n1
+turtle.color("orange")          #
+turtle.left(30) #draw path
+turtle.forward(100) #edge 1-2
+turtle.color("pink")            #
+turtle.dot(15) #n2
+turtle.color("orange")          #
+turtle.right(60)
+turtle.forward(100) #edge 2-3
+turtle.color("pink")            #
+turtle.dot(15) #n3
+
+#Source code: https://stackoverflow.com/questions/40622576/move-already-drawn-image-python-turtle
+screen = Screen()
+turtle.speed("fastest")
+turtle.penup()
+
+shape = Shape("compound")
+turtle.setpos(0,0) #set at n1
+turtle.begin_poly() #draw car
+turtle.left(120+90) #reorient turtle
+turtle.fd(10)
+turtle.right(90)
+turtle.fd(10)
+turtle.left(90)
+turtle.fd(10)
+turtle.right(90)
+turtle.fd(30)
+turtle.right(90)
+turtle.fd(20)
+turtle.right(90)
+turtle.fd(40)
+turtle.end_poly()
+
+shape.addcomponent(turtle.get_poly(), "red", "black")
+screen.register_shape("body", shape)
+car = Turtle(shape="body")
+car.penup()
+car.speed("slowest")
+car.setpos(0,0) #n1 - begin here
+car.goto(86.67, 50) #n2
+
+while True: #continue to move the car along the path at random
+  x = random.random()
+  if x >= 0.5:
+    car.goto(173.33, 0) #n3
+    car.goto(86.67, 50) #back to n2
+  else:
+    car.goto(0, 0) #n1
+    car.goto(86.67, 50) #back to n2
+
+screen.exitonclick()
+
+turtle.done() #use at end of turtle program
